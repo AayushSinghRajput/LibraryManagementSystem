@@ -1,0 +1,123 @@
+/* ManageUsers.css */
+.manage-users-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.manage-users-heading {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.users-table th,
+.users-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.users-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.users-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status.active {
+    background-color: #28a745;
+    color: white;
+}
+
+.status.inactive {
+    background-color: #dc3545;
+    color: white;
+}
+
+.toggle-button,
+.delete-button {
+    padding: 8px 15px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.toggle-button {
+    background-color: #ffc107;
+    color: white;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.toggle-button:hover {
+    background-color: #e0a800;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.users-table tr.active {
+    background-color: #d4edda;
+}
+
+.users-table tr.inactive {
+    background-color: #f8d7da;
+}
+
+@media (max-width: 768px) {
+    .manage-users-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .users-table th,
+    .users-table td {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    .toggle-button,
+    .delete-button {
+        font-size: 0.9em;
+        padding: 6px 12px;
+    }
+}

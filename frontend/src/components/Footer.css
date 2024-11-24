@@ -1,0 +1,56 @@
+/* Basic footer styling */
+.footer {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-top: 120px;
+    /* height: 55px; */
+}
+
+/* Styling for links inside the footer */
+.footer a {
+    color: #ff6347;
+    text-decoration: none;
+}
+
+/* Hover effect for links */
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+
+    /* For tablet or smaller screens */
+    .footer {
+        padding: 15px 0;
+        /* Increase padding for smaller screens */
+        font-size: 14px;
+        /* Slightly reduce font size */
+    }
+
+    .footer a {
+        font-size: 16px;
+        /* Ensure the links are readable on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* For mobile screens */
+    .footer {
+        padding: 20px 0;
+        /* More padding for mobile screens */
+        font-size: 12px;
+        /* Smaller font size on mobile */
+    }
+
+    .footer a {
+        font-size: 14px;
+        /* Slightly smaller font size for links on mobile */
+    }
+}

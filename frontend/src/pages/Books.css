@@ -1,0 +1,114 @@
+/* Books.css */
+.books-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.books-heading {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.books-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.book-item {
+    background-color: #fff;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.book-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #007BFF;
+    margin-bottom: 10px;
+}
+
+.book-author,
+.book-genre,
+.book-published-date {
+    font-size: 1em;
+    color: #555;
+    margin: 5px 0;
+}
+
+.book-author {
+    font-style: italic;
+}
+
+.book-published-date {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.book-actions {
+    margin-top: 10px;
+}
+
+.issue-button,
+.return-button {
+    padding: 8px 15px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.issue-button {
+    background-color: #28a745;
+    color: white;
+}
+
+.return-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.issue-button:hover {
+    background-color: #218838;
+}
+
+.return-button:hover {
+    background-color: #c82333;
+}
+
+.book-item p {
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+    .books-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .book-title {
+        font-size: 1.3em;
+    }
+
+    .issue-button,
+    .return-button {
+        font-size: 0.9em;
+        padding: 6px 12px;
+    }
+}

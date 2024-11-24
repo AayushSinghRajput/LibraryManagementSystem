@@ -1,0 +1,98 @@
+/* Basic sidebar styling */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    /* Smooth transition for sidebar toggling */
+}
+
+/* Sidebar menu styling */
+.sidebar__menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar__menu li {
+    margin: 15px 0;
+}
+
+.sidebar__menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.sidebar__menu a:hover {
+    color: #ff6347;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+
+    /* For tablets or medium-sized screens */
+    .sidebar {
+        width: 200px;
+        /* Reduce the sidebar width */
+        padding: 15px;
+        /* Reduce padding */
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* For tablets or smaller screens */
+    .sidebar {
+        width: 100%;
+        /* Sidebar takes full width */
+        position: absolute;
+        /* Position the sidebar absolutely to overlay content */
+        height: 100vh;
+        top: 0;
+        left: -100%;
+        /* Initially hide the sidebar */
+    }
+
+    /* Active sidebar class that will be used when the sidebar is toggled */
+    .sidebar.active {
+        left: 0;
+        /* Show the sidebar */
+    }
+
+    .sidebar__menu li {
+        margin: 10px 0;
+        /* Reduce the margin between items */
+    }
+
+    .sidebar__menu a {
+        font-size: 14px;
+        /* Slightly smaller font size for mobile screens */
+    }
+
+    /* Sidebar toggle button */
+    .sidebar-toggle {
+        display: block;
+        /* Make the toggle button visible on small screens */
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        background-color: transparent;
+        border: none;
+        color: #333;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* For mobile screens */
+    .sidebar__menu a {
+        font-size: 13px;
+        /* Even smaller font size on very small screens */
+    }
+}

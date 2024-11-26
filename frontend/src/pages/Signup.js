@@ -3,7 +3,7 @@ import "./Sign.css";
 import { useNavigate } from "react-router-dom";
 
 const Sign = ({ setIsAuthenticated }) => {
-  const navigate = useNavigate(); //initalizing navigate hook
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -17,7 +17,13 @@ const Sign = ({ setIsAuthenticated }) => {
       [name]: value,
     });
   };
+
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
+
+  const isDuplicateEmail = (email) => {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    return users.some((user) => user.email === email);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,11 +31,20 @@ const Sign = ({ setIsAuthenticated }) => {
       alert("Please enter a valid email.");
       return;
     }
-    // You can handle form submission logic here
-    console.log("Signup form submitted", formData);
-    alert("You are Signed Up ");
+
+    if (isDuplicateEmail(formData.email)) {
+      alert("This email is already registered. Please use a different email.");
+      return;
+    }
+
+    // Save user data in localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push(formData);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Signup successful!");
     setIsAuthenticated(true);
-    navigate("/login"); //Redirect to Home page
+    navigate("/login"); // Redirect to login page
   };
 
   return (

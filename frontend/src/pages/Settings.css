@@ -39,6 +39,37 @@ body.dark .settings-container {
     font-weight: bold;
 }
 
+.reset-button {
+    padding: 10px;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.settings-select {
+    width: 100%;
+    padding: 10px;
+}
+
+.settings-input {
+    margin-top: 10px;
+}
+
+.profile-picture-preview img {
+    max-width: 150px;
+    margin-top: 10px;
+}
+
+.reset-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.reset-button:hover {
+    background-color: #d32f2f;
+}
+
 /* Section */
 .settings-section {
     margin-bottom: 20px;
@@ -106,6 +137,48 @@ body.dark .settings-container {
     margin-top: 20px;
     opacity: 0.8;
 }
+
+/* High Contrast Mode */
+body.high-contrast {
+    background-color: #000;
+    color: #fff;
+}
+
+body.high-contrast .settings-container {
+    background: #111;
+}
+
+body.high-contrast .settings-button {
+    background-color: #e74c3c;
+}
+
+body.high-contrast .settings-section {
+    background: #222;
+}
+
+/* Accessibility - High Contrast Mode */
+.settings-button.high-contrast {
+    background-color: #e74c3c;
+}
+
+.settings-label input {
+    transform: scale(1.2);
+}
+
+/* Profile Image */
+.profile-pic {
+    width: 100px;
+    /* Set a fixed width */
+    height: 100px;
+    /* Set a fixed height */
+    border-radius: 50%;
+    /* Make the image circular */
+    object-fit: cover;
+    /* Ensure the image fills the circle while maintaining its aspect ratio */
+    margin-top: 10px;
+}
+
+
 
 /* Transitions for Theme Changes */
 body {

@@ -13,6 +13,7 @@ const Login = ({ setIsAuthenticated }) => {
   const [errors, setErrors] = useState({
     email: "",
     password: "",
+    login: "",
   });
 
   const handleChange = (e) => {
@@ -26,6 +27,7 @@ const Login = ({ setIsAuthenticated }) => {
     setErrors({
       ...errors,
       [name]: "",
+      login: "",
     });
   };
 
@@ -50,8 +52,20 @@ const Login = ({ setIsAuthenticated }) => {
       return;
     }
 
+    // Retrieve users from localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Check if the email and password match
+    const user = users.find(
+      (u) => u.email === formData.email && u.password === formData.password
+    );
+
+    if (!user) {
+      setErrors({ login: "Invalid email or password. Please try again." });
+      return;
+    }
+
     // Handle successful login
-    console.log("Login form submitted", formData);
     alert("You are Logged In!");
     setIsAuthenticated(true);
 
@@ -88,6 +102,7 @@ const Login = ({ setIsAuthenticated }) => {
             <p className="error-message">{errors.password}</p>
           )}
         </div>
+        {errors.login && <p className="error-message">{errors.login}</p>}
         <button type="submit" className="submit-button">
           Login
         </button>

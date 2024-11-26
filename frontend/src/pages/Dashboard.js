@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { dashboardData } from "../data/dashboardData"; // Import mock dashboard data
+import "./Dashboard.css"; // Import the CSS file
 
 const Dashboard = () => {
   const [data, setData] = useState(dashboardData);
@@ -22,80 +23,45 @@ const Dashboard = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="dashboard-container">
       {/* Main Container */}
-      <div
-        style={{
-          maxWidth: "800px",
-          margin: "0 auto",
-          padding: "20px",
-          border: "1px solid #ddd",
-          borderRadius: "8px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          backgroundColor: "#fff",
-        }}
-      >
-        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
-          Dashboard Overview
-        </h2>
-        <div
-          style={{
-            display: "grid",
-            gap: "15px",
-            gridTemplateColumns: "1fr",
-            textAlign: "center",
-          }}
-        >
-          <div>
-            <p style={{ fontSize: "1.2rem", margin: "5px 0" }}>
-              <strong>Total Books:</strong> {data.totalBooks}
-            </p>
-          </div>
-          <div>
-            <p style={{ fontSize: "1.2rem", margin: "5px 0" }}>
-              <strong>Total Users:</strong> {data.totalUsers}
-            </p>
-          </div>
-          <div>
-            <p style={{ fontSize: "1.2rem", margin: "5px 0" }}>
-              <strong>Total Borrowed Books:</strong> {data.totalBorrowedBooks}
-            </p>
-          </div>
-          <div>
-            <p style={{ fontSize: "1.2rem", margin: "5px 0" }}>
-              <strong>Total Admins:</strong> {data.totalAdmins}
-            </p>
-          </div>
-        </div>
-        <button
-          onClick={handleRefresh}
-          style={{
-            marginTop: "20px",
-            padding: "10px 20px",
-            backgroundColor: refreshing ? "#ccc" : "#007BFF",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: refreshing ? "not-allowed" : "pointer",
-            transition: "background-color 0.3s",
-            width: "100%",
-          }}
-          disabled={refreshing}
-        >
-          {refreshing ? "Refreshing..." : "Refresh Data"}
-        </button>
-        {refreshing && (
-          <p
-            style={{
-              marginTop: "15px",
-              fontStyle: "italic",
-              textAlign: "center",
-            }}
-          >
-            Updating data, please wait...
+      <h2 className="dashboard-heading">Dashboard Overview</h2>
+      <div className="dashboard-stats">
+        <div className="dashboard-stat">
+          <p>
+            <strong>Total Books:</strong> {data.totalBooks}
           </p>
-        )}
+        </div>
+        <div className="dashboard-stat">
+          <p>
+            <strong>Total Users:</strong> {data.totalUsers}
+          </p>
+        </div>
+        <div className="dashboard-stat">
+          <p>
+            <strong>Total Borrowed Books:</strong> {data.totalBorrowedBooks}
+          </p>
+        </div>
+        <div className="dashboard-stat">
+          <p>
+            <strong>Total Admins:</strong> {data.totalAdmins}
+          </p>
+        </div>
       </div>
+
+      <button
+        onClick={handleRefresh}
+        className="dashboard-button"
+        disabled={refreshing}
+      >
+        {refreshing ? "Refreshing..." : "Refresh Data"}
+      </button>
+
+      {refreshing && (
+        <p className="dashboard-refreshing-text">
+          Updating data, please wait...
+        </p>
+      )}
     </div>
   );
 };

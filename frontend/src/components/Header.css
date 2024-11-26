@@ -32,9 +32,26 @@
     font-weight: bold;
 }
 
-.header__nav a:hover {
+.header__nav-list #navlink1:hover {
+    color: #ff6347;
+
+}
+
+.header__nav-list #navlink2:hover {
     color: #ff6347;
 }
+
+.header__nav-list #navlink3:hover {
+    color: #ff6347;
+}
+
+.header__nav-list #navlink4:hover {
+    color: #ff6347;
+}
+
+
+
+
 
 .auth-button {
     background-color: #ff6347;
@@ -63,6 +80,71 @@
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
+}
+
+.theme-toggle {
+    margin-left: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dark Theme */
+body.dark-theme {
+    background-color: #333;
+    color: #fff;
+}
+
+body.dark-theme .header {
+    background-color: #222;
+    color: #fff;
+}
+
+body.dark-theme .header__nav {
+    background-color: #222;
+}
+
+body.dark-theme .auth-button,
+body.dark-theme .theme-toggle {
+    background-color: #555;
+}
+
+body.dark-theme .header__nav-list a {
+    color: #fff;
+}
+
+body.dark-theme .header__title {
+    color: #fff;
+}
+
+/* Light Theme (Default) */
+body.light-theme {
+    background-color: #fff;
+    color: #000;
+}
+
+body.light-theme .header {
+    background-color: #fff;
+    color: #000;
+}
+
+body.light-theme .header__nav {
+    background-color: #fff;
+}
+
+body.light-theme .auth-button,
+body.light-theme .theme-toggle {
+    background-color: #007bff;
+}
+
+body.light-theme .header__nav-list a {
+    color: #000;
+}
+
+body.light-theme .header__title {
+    color: #000;
 }
 
 /* Responsive Design */
@@ -111,5 +193,14 @@
         top: 10px;
         right: 20px;
         transform: none;
+    }
+
+    .theme-toggle {
+        display: block;
+        position: relative;
+        top: 12px;
+        right: 15px;
+        transform: none;
+
     }
 }

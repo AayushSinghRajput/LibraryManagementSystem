@@ -32,6 +32,7 @@ const getBorrowHistory = async (req, res) => {
     const borrowHistory = await borrowService.getBorrowHistory(req.user.id); // Assuming req.user is set by auth middleware
     res.status(200).json(borrowHistory);
   } catch (error) {
+    console.error("Error fetching borrow history:", error);
     res.status(500).json({ message: error.message });
   }
 };

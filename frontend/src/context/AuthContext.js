@@ -15,7 +15,14 @@ export const AuthProvider = ({ children }) => {
         // Check if a user is stored in localStorage (or use a token-based API call here)
         const storedUser = localStorage.getItem("authUser");
         if (storedUser) {
-          setUser(JSON.parse(storedUser));
+          try {
+            setUser(JSON.parse(storedUser));
+          } catch (error) {
+            console.error(
+              "Error parsing authUser data from localStorage:",
+              error
+            );
+          }
         }
       } catch (error) {
         console.error("Error fetching auth status:", error);
@@ -25,6 +32,9 @@ export const AuthProvider = ({ children }) => {
     };
 
     fetchUser();
+
+    // Cleanup if the component is unmounted
+    return () => setIsLoading(false);
   }, []);
 
   // Login function

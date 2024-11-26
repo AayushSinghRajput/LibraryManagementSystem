@@ -2,7 +2,8 @@
 .books-container {
     width: 90%;
     max-width: 900px;
-    margin: 30px auto;
+    /* margin: 30px auto; */
+    margin-left: 380px;
     padding: 20px;
     background-color: #f4f4f4;
     border-radius: 10px;
@@ -32,7 +33,7 @@
 }
 
 .book-item:hover {
-    transform: translateY(-5px);
+    /* transform: translateY(-10px); */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -41,6 +42,9 @@
     font-weight: bold;
     color: #007BFF;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .book-author,
@@ -49,6 +53,9 @@
     font-size: 1em;
     color: #555;
     margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .book-author {
@@ -62,6 +69,9 @@
 
 .book-actions {
     margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .issue-button,
@@ -72,16 +82,19 @@
     cursor: pointer;
     margin-right: 10px;
     border-radius: 5px;
+
 }
 
 .issue-button {
     background-color: #28a745;
     color: white;
+
 }
 
 .return-button {
     background-color: #dc3545;
     color: white;
+
 }
 
 .issue-button:hover {

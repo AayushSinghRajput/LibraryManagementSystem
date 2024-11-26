@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./Sign.css";
+import { useNavigate } from "react-router-dom";
 
-const Sign = () => {
+const Sign = ({ setIsAuthenticated }) => {
+  const navigate = useNavigate(); //initalizing navigate hook
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -15,11 +17,19 @@ const Sign = () => {
       [name]: value,
     });
   };
+  const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!isValidEmail(formData.email)) {
+      alert("Please enter a valid email.");
+      return;
+    }
     // You can handle form submission logic here
     console.log("Signup form submitted", formData);
+    alert("You are Signed Up ");
+    setIsAuthenticated(true);
+    navigate("/login"); //Redirect to Home page
   };
 
   return (

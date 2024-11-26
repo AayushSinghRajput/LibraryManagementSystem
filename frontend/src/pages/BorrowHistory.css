@@ -1,0 +1,78 @@
+/* BorrowHistory.css */
+
+.borrow-history-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.borrow-history-heading {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.borrow-history-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.borrow-history-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: box-shadow 0.2s;
+}
+
+.borrow-history-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.book-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    margin: 0;
+}
+
+.book-author {
+    font-size: 16px;
+    color: #555;
+    margin: 0;
+}
+
+.issued-date {
+    font-size: 14px;
+    color: #777;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .borrow-history-container {
+        padding: 15px;
+    }
+
+    .borrow-history-item {
+        padding: 10px;
+    }
+
+    .book-title {
+        font-size: 16px;
+    }
+
+    .book-author,
+    .issued-date {
+        font-size: 14px;
+    }
+}

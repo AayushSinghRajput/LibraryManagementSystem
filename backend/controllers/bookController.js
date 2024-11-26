@@ -1,7 +1,5 @@
 const bookService = require("../services/bookService");
-// import bookServie from "../services/bookService";
 
-// Get All Books
 const getBooks = async (req, res) => {
   try {
     const books = await bookService.getAllBooks();
@@ -11,7 +9,6 @@ const getBooks = async (req, res) => {
   }
 };
 
-// Add a Book
 const addBook = async (req, res) => {
   const bookData = req.body;
   try {
@@ -22,18 +19,18 @@ const addBook = async (req, res) => {
   }
 };
 
-// Delete a Book
-const deleteBook = async (req, res) => {
-  const { id } = req.params;
+const issueBook = async (req, res) => {
+  const { bookId } = req.body; // Get book ID from request body
+  const userId = req.user.id; // Get user ID from the token (user is attached to req in the middleware)
+
   try {
-    await bookService.deleteBook(id);
-    res.status(200).json({ message: "Book deleted successfully" });
+    const book = await bookService.issueBook(bookId, userId);
+    res.status(200).json({ message: "Book issued successfully", book });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
 
-//Get a Book by ID
 const getBookById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -47,4 +44,4 @@ const getBookById = async (req, res) => {
   }
 };
 
-module.exports = { getBooks, addBook, deleteBook, getBookById };
+module.exports = { getBooks, addBook, issueBook, getBookById };

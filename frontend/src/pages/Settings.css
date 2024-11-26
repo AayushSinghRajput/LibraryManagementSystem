@@ -1,0 +1,148 @@
+/* Global Styles for Body */
+body.light {
+    background: linear-gradient(135deg, #f9f9f9, #eaeaea);
+    color: #2c3e50;
+}
+
+body.dark {
+    background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+    color: #ecf0f1;
+}
+
+/* Container */
+.settings-container {
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 25px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    /* Light translucent effect */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    /* Soft shadow */
+    transition: all 0.3s ease;
+}
+
+body.dark .settings-container {
+    background: rgba(44, 62, 80, 0.8);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Heading */
+.settings-heading {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #3498db;
+    /* Light blue for accent */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+/* Section */
+.settings-section {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.settings-section.light {
+    background: linear-gradient(135deg, #ffffff, #f1f1f1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.settings-section.dark {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+.settings-button {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #fff;
+}
+
+.settings-button.light {
+    background: linear-gradient(135deg, #3498db, #5dade2);
+}
+
+.settings-button.dark {
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+}
+
+.settings-button:hover {
+    transform: translateY(-3px);
+    /* Subtle hover effect */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Labels */
+.settings-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.settings-label input {
+    transform: scale(1.2);
+}
+
+/* Note Section */
+.settings-note {
+    text-align: center;
+    font-style: italic;
+    font-size: 1rem;
+    margin-top: 20px;
+    opacity: 0.8;
+}
+
+/* Transitions for Theme Changes */
+body {
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .settings-container {
+        padding: 20px;
+    }
+
+    .settings-heading {
+        font-size: 2rem;
+    }
+
+    .settings-button {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    .settings-section {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .settings-container {
+        padding: 15px;
+    }
+
+    .settings-heading {
+        font-size: 1.8rem;
+    }
+
+    .settings-button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}

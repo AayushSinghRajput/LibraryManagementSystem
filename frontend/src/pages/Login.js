@@ -1,59 +1,16 @@
-// import React, { useState } from "react";
-// import { useAuth } from "../context/AuthContext";
-// import { useNavigate } from "react-router-dom";
-
-// const Login = () => {
-//   const { login } = useAuth();
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const navigate = useNavigate();
-
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
-
-//     // Simulate authentication (replace with actual API call)
-//     const mockUser = { id: 1, name: "Admin", email };
-
-//     // Store the user using AuthContext
-//     login(mockUser);
-//     navigate("/home"); // Redirect after login
-//   };
-
-//   return (
-//     <div>
-//       <h2>Login</h2>
-//       <form onSubmit={handleLogin}>
-//         <input
-//           type="email"
-//           placeholder="Email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           required
-//         />
-//         <input
-//           type="password"
-//           placeholder="Password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           required
-//         />
-//         <button type="submit">Login</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Login;
-
-//next logic
 import React, { useState } from "react";
 import "./Login.css";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Login = ({ setIsAuthenticated }) => {
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
+  const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({
     email: "",
     password: "",
   });
@@ -64,24 +21,50 @@ const Login = ({ setIsAuthenticated }) => {
       ...formData,
       [name]: value,
     });
+
+    // Reset errors as user types
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
   };
+
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newErrors = {};
+
+    // Validate email
     if (!isValidEmail(formData.email)) {
-      alert("Please enter a valid email.");
+      newErrors.email = "Please enter a valid email address.";
+    }
+
+    // Validate password length
+    if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters long.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
-    // You can handle form submission logic here
+
+    // Handle successful login
     console.log("Login form submitted", formData);
+    alert("You are Logged In!");
+    setIsAuthenticated(true);
+
+    // Redirect to the intended page or home
+    const redirectTo = location.state?.from?.pathname || "/";
+    navigate(redirectTo);
   };
 
   return (
     <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit} className="login-form">
-        <div>
+        <div className="form-group">
           <label>Email</label>
           <input
             type="email"
@@ -90,8 +73,9 @@ const Login = ({ setIsAuthenticated }) => {
             onChange={handleChange}
             required
           />
+          {errors.email && <p className="error-message">{errors.email}</p>}
         </div>
-        <div>
+        <div className="form-group">
           <label>Password</label>
           <input
             type="password"
@@ -100,8 +84,11 @@ const Login = ({ setIsAuthenticated }) => {
             onChange={handleChange}
             required
           />
+          {errors.password && (
+            <p className="error-message">{errors.password}</p>
+          )}
         </div>
-        <button type="submit" onClick={handleLogin}>
+        <button type="submit" className="submit-button">
           Login
         </button>
       </form>

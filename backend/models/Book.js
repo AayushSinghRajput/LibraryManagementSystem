@@ -23,9 +23,18 @@ const bookSchema = mongoose.Schema(
       required: [true, "Please enter the number of available copies"],
       default: 0,
     },
+    issuedTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // Reference to User model
+      default: null,
+    },
     addedAt: {
       type: Date,
       default: Date.now,
+    },
+    isIssued: {
+      type: Boolean,
+      default: false, // Tracks if the book is issued
     },
   },
   {

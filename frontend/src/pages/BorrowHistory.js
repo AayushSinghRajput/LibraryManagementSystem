@@ -1,42 +1,42 @@
-// src/pages/BorrowHistory.js
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import "./BorrowHistory.css";
 
 const BorrowHistory = () => {
-  const { user } = useAuth();
-  const [history, setHistory] = useState([]);
+  const { user, token } = useAuth();
+  const [borrowedBooks, setBorrowedBooks] = useState([]);
 
   useEffect(() => {
-    if (user) {
-      // Fetch borrowing history for the logged-in user (replace with actual API)
-      const fetchHistory = async () => {
-        const response = await fetch(`/api/borrow-history/${user.id}`);
-        const data = await response.json();
-        setHistory(data);
-      };
-      fetchHistory();
-    }
-  }, [user]);
+    const fetchBorrowHistory = async () => {
+      try {
+        const response = await axios.get(
+          `/api/books/borrow-history/${user._id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setBorrowedBooks(response.data);
+      } catch (err) {
+        console.error("Error fetching borrow history:", err.message);
+      }
+    };
 
-  if (!user) {
-    return <p>Please log in to view your borrow history.</p>;
-  }
+    if (user) {
+      fetchBorrowHistory();
+    }
+  }, [user, token]);
 
   return (
-    <div>
-      <h2>Your Borrow History</h2>
-      <ul>
-        {history.map((record) => (
-          <li key={record._id}>
-            <p>Book: {record.bookTitle}</p>
-            <p>
-              Borrowed on: {new Date(record.borrowDate).toLocaleDateString()}
-            </p>
-            <p>
-              Returned on:{" "}
-              {record.returnDate
-                ? new Date(record.returnDate).toLocaleDateString()
-                : "Not yet returned"}
+    <div className="borrow-history-container">
+      <h2 className="borrow-history-heading">Your Borrowed Books</h2>
+      <ul className="borrow-history-list">
+        {borrowedBooks.map((entry) => (
+          <li key={entry._id} className="borrow-history-item">
+            <h3 className="book-title">{entry.bookId.title}</h3>
+            <p className="book-author">Author: {entry.bookId.author}</p>
+            <p className="issued-date">
+              Issued Date: {new Date(entry.issuedDate).toLocaleDateString()}
             </p>
           </li>
         ))}

@@ -5,6 +5,7 @@ const {
   getBorrowHistory,
 } = require("../controllers/borrowController");
 const authMiddleware = require("../middlewares/authMiddleware");
+// const Borrow = require("../models/Borrow");
 
 const router = express.Router();
 
@@ -15,6 +16,6 @@ router.post("/borrow", authMiddleware, borrowBook);
 router.post("/return", authMiddleware, returnBook);
 
 // Get borrow history for a user
-router.get("/", authMiddleware, getBorrowHistory);
+router.get("/history", authMiddleware, getBorrowHistory);
 
 module.exports = router;

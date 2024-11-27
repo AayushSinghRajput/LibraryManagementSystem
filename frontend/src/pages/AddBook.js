@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./AddBook.css";
 
 const AddBook = ({ addBook }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
+  const [publishedDate, setpublishedDate] = useState("");
+  const [genre, setgenre] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !author) {
+    if (!title || !author || !publishedDate || !genre) {
       alert("Please fill out all fields");
       return;
     }
@@ -15,18 +20,23 @@ const AddBook = ({ addBook }) => {
       id: Date.now(),
       title,
       author,
+      genre,
+      publishedDate,
     };
 
     addBook(newBook);
     setTitle("");
     setAuthor("");
+    setpublishedDate("");
+    setgenre("");
     alert("Book added successfully!");
+    navigate("/books");
   };
 
   return (
-    <div>
-      <h2>Add Book</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="add-book-container">
+      <h2 className="add-book-heading">Add Book</h2>
+      <form className="add-book-form" onSubmit={handleSubmit}>
         <div>
           <label>Title:</label>
           <input
@@ -43,7 +53,25 @@ const AddBook = ({ addBook }) => {
             onChange={(e) => setAuthor(e.target.value)}
           />
         </div>
-        <button type="submit">Add Book</button>
+        <div>
+          <label>Genre:</label>
+          <input
+            type="text"
+            value={genre}
+            onChange={(e) => setgenre(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>PublishedDate:</label>
+          <input
+            type="date"
+            value={publishedDate}
+            onChange={(e) => setpublishedDate(e.target.value)}
+          />
+        </div>
+        <button className="add-book-button" type="submit">
+          Add Book
+        </button>
       </form>
     </div>
   );

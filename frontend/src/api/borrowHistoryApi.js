@@ -1,15 +1,26 @@
 // src/api/borrowHistoryApi.js
 
-export const fetchBorrowHistory = async (userId) => {
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+export const fetchBorrowHistory = async (userId, token) => {
   try {
-    const response = await fetch(`/api/borrow-history/${userId}`);
+    const response = await fetch(
+      `${apiUrl}/api/borrow/borrow-history/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
     if (!response.ok) {
-      // Extract error message from the response if available
       const errorData = await response.json();
       throw new Error(errorData.message || "Failed to fetch borrow history");
     }
-    const data = await response.json();
-    return data; // Returns the borrow history data
+
+    return await response.json();
   } catch (error) {
     console.error("Error fetching borrow history:", error);
     throw new Error(

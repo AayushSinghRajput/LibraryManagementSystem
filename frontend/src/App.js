@@ -26,6 +26,14 @@ import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); //Track loading state
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
 
   // Initialize books from localStorage or default to booksData
   const [books, setBooks] = useState(() => {
@@ -84,11 +92,23 @@ const App = () => {
             <Route path="/users" element={<Users />} />
             <Route
               path="/login"
-              element={<Login setIsAuthenticated={setIsAuthenticated} />}
+              element={
+                <Login
+                  setIsAuthenticated={handleLogin}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                />
+              }
             />
             <Route
               path="/signup"
-              element={<Signup setIsAuthenticated={setIsAuthenticated} />}
+              element={
+                <Signup
+                  setIsAuthenticated={handleLogin}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                />
+              }
             />
             <Route path="/about" element={<About />} />
             <Route path="/dashboard" element={<Dashboard />} />

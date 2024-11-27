@@ -26,21 +26,24 @@ const BorrowHistory = () => {
       fetchBorrowHistory();
     }
   }, [user, token]);
-
   return (
     <div className="borrow-history-container">
       <h2 className="borrow-history-heading">Your Borrowed Books</h2>
-      <ul className="borrow-history-list">
-        {borrowedBooks.map((entry) => (
-          <li key={entry._id} className="borrow-history-item">
-            <h3 className="book-title">{entry.bookId.title}</h3>
-            <p className="book-author">Author: {entry.bookId.author}</p>
-            <p className="issued-date">
-              Issued Date: {new Date(entry.issuedDate).toLocaleDateString()}
-            </p>
-          </li>
-        ))}
-      </ul>
+      {borrowedBooks.length > 0 ? (
+        <ul className="borrow-history-list">
+          {borrowedBooks.map((entry) => (
+            <li key={entry._id} className="borrow-history-item">
+              <h3 className="book-title">{entry.bookId.title}</h3>
+              <p className="book-author">Author: {entry.bookId.author}</p>
+              <p className="issued-date">
+                Issued Date: {new Date(entry.issuedDate).toLocaleDateString()}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No books have been borrowed yet.</p>
+      )}
     </div>
   );
 };

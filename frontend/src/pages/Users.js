@@ -1,4 +1,3 @@
-//Next logic
 import React, { useState } from "react";
 import { usersData } from "../data/usersData";
 import "./UserData.css"; // Import CSS for styling
@@ -30,14 +29,31 @@ const UserData = () => {
         />
       </div>
       {filteredUsers.length > 0 ? (
-        <ul className="user-list">
-          {filteredUsers.map((user) => (
-            <li key={user.id} className="user-item">
-              <strong>Name:</strong> {user.name} | <strong>Email:</strong>{" "}
-              {user.email} | <strong>Role:</strong> {user.role}
-            </li>
-          ))}
-        </ul>
+        <table className="user-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredUsers.map((user) => (
+              <tr
+                key={user.id}
+                className={user.role === "Admin" ? "admin" : "user"}
+              >
+                <td className="name">{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+                <td className={user.isActive ? "active" : "inactive"}>
+                  {user.isActive ? "Active" : "Inactive"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       ) : (
         <p className="no-users">No users found!</p>
       )}

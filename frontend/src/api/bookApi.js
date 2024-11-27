@@ -1,20 +1,27 @@
 // src/api/bookApi.js
 
-// Function to fetch books from the backend
-export const fetchBooks = async () => {
-  const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000"; // Use an environment variable for the base URL
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
+export const fetchBooks = async () => {
   try {
-    const response = await fetch(`${apiUrl}/api/books`); // Dynamically use the API URL
+    const response = await fetch(`${apiUrl}/api/books`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
     if (!response.ok) {
-      throw new Error(`Failed to fetch books: ${response.statusText}`);
+      const errorData = await response.json();
+      throw new Error(errorData.message || `Failed to fetch books`);
     }
-    const data = await response.json();
-    return data; // Returns the fetched data
+
+    return await response.json();
   } catch (error) {
     console.error("Error fetching books:", error);
     throw new Error(
-      "An error occurred while fetching the books. Please try again later."
+      error.message ||
+        "An error occurred while fetching the books. Please try again later."
     );
   }
 };

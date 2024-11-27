@@ -36,7 +36,9 @@ const Header = () => {
 
   return (
     <header className="header">
-      <h1 className="header__title">Library Management System</h1>
+      <Link to="/" className="header__title" id="header__title">
+        Library Management System
+      </Link>
       <nav className="header__nav">
         <ul className={`header__nav-list ${isMenuOpen ? "open" : ""}`}>
           <li>

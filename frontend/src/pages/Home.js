@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "./Home.css"; // Importing the external CSS
 
 const Home = () => {
   const [hoveredLink, setHoveredLink] = useState("");
@@ -13,51 +14,17 @@ const Home = () => {
   };
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        textAlign: "center",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "2.5rem",
-          marginBottom: "20px",
-        }}
-      >
-        Welcome to the Library
-      </h1>
-      <p
-        style={{
-          fontSize: "1.2rem",
-          marginBottom: "30px",
-        }}
-      >
-        Explore a wide collection of books!
-      </p>
+    <div className="home-container">
+      <h1 className="home-header">Welcome to the Library</h1>
+      <p className="home-subheader">Explore a wide collection of books!</p>
       <nav>
-        <ul
-          style={{
-            listStyle: "none",
-            padding: 0,
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: "20px",
-          }}
-        >
+        <ul>
           <li>
             <Link
               to="/books"
               onMouseEnter={() => handleMouseEnter("Browse Books")}
               onMouseLeave={handleMouseLeave}
-              style={{
-                textDecoration: "none",
-                color: hoveredLink === "Browse Books" ? "blue" : "black",
-                fontSize: "1.2rem",
-                transition: "color 0.3s",
-              }}
+              className={hoveredLink === "Browse Books" ? "active-link" : ""}
             >
               Browse Books
             </Link>
@@ -67,12 +34,7 @@ const Home = () => {
               to="/borrow-history"
               onMouseEnter={() => handleMouseEnter("Borrow History")}
               onMouseLeave={handleMouseLeave}
-              style={{
-                textDecoration: "none",
-                color: hoveredLink === "Borrow History" ? "blue" : "black",
-                fontSize: "1.2rem",
-                transition: "color 0.3s",
-              }}
+              className={hoveredLink === "Borrow History" ? "active-link" : ""}
             >
               Your Borrow History
             </Link>
@@ -82,60 +44,18 @@ const Home = () => {
               to="/users"
               onMouseEnter={() => handleMouseEnter("Manage Users")}
               onMouseLeave={handleMouseLeave}
-              style={{
-                textDecoration: "none",
-                color: hoveredLink === "Manage Users" ? "blue" : "black",
-                fontSize: "1.2rem",
-                transition: "color 0.3s",
-              }}
+              className={hoveredLink === "Manage Users" ? "active-link" : ""}
             >
               Manage Users
             </Link>
           </li>
         </ul>
       </nav>
-      {hoveredLink && (
-        <div
-          style={{
-            marginTop: "20px",
-            padding: "10px",
-            backgroundColor: "#f1f1f1",
-            borderRadius: "8px",
-            boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-            display: "inline-block",
-            fontSize: "1rem",
-          }}
-        >
+      {/* {hoveredLink && (
+        <div className="hover-info">
           <p>{`You are hovering over: ${hoveredLink}`}</p>
         </div>
-      )}
-      <style>
-        {`
-          @media (max-width: 768px) {
-            h1 {
-              font-size: 2rem;
-            }
-            p {
-              font-size: 1rem;
-            }
-            ul {
-              flex-direction: column;
-              gap: 10px;
-            }
-            li {
-              font-size: 1rem;
-            }
-          }
-          @media (max-width: 480px) {
-            h1 {
-              font-size: 1.5rem;
-            }
-            p {
-              font-size: 0.9rem;
-            }
-          }
-        `}
-      </style>
+      )} */}
     </div>
   );
 };

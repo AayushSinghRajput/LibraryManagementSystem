@@ -12,6 +12,7 @@ const userRoutes = require("./routes/userRoutes");
 
 // Middlewares
 const errorHandler = require("./middlewares/errorHandler");
+const authMiddleware = require("./middlewares/authMiddleware");
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -29,7 +30,7 @@ app.use(cors()); // Enable Cross-Origin Resource Sharing (CORS)
 // API Routes
 app.use("/api/auth", authRoutes); // Authentication routes
 app.use("/api/books", bookRoutes); // Book routes
-app.use("/api/borrow", borrowRoutes); // Borrow book routes
+app.use("/api/borrow", authMiddleware, borrowRoutes); // Borrow book routes
 app.use("/api/users", userRoutes); // User routes
 
 // Error handling middleware (Should be the last middleware)

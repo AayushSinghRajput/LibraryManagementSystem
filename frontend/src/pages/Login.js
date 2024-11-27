@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import "./Login.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import "./Login.css";
 
-const Login = ({ setIsAuthenticated }) => {
+const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -22,8 +21,6 @@ const Login = ({ setIsAuthenticated }) => {
       ...formData,
       [name]: value,
     });
-
-    // Reset errors as user types
     setErrors({
       ...errors,
       [name]: "",
@@ -52,26 +49,28 @@ const Login = ({ setIsAuthenticated }) => {
       return;
     }
 
-    // Retrieve users from localStorage
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    // Set loading to true
+    setIsLoading(true);
 
-    // Check if the email and password match
-    const user = users.find(
-      (u) => u.email === formData.email && u.password === formData.password
-    );
+    // Simulate async login process (you can replace this with your actual API call)
+    setTimeout(() => {
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const user = users.find(
+        (u) => u.email === formData.email && u.password === formData.password
+      );
 
-    if (!user) {
-      setErrors({ login: "Invalid email or password. Please try again." });
-      return;
-    }
+      if (!user) {
+        setErrors({ login: "Invalid email or password. Please try again." });
+        setIsLoading(false);
+        return;
+      }
 
-    // Handle successful login
-    alert("You are Logged In!");
-    setIsAuthenticated(true);
-
-    // Redirect to the intended page or home
-    const redirectTo = location.state?.from?.pathname || "/";
-    navigate(redirectTo);
+      alert("You are logged in!");
+      setIsAuthenticated(true);
+      const redirectTo = location.state?.from?.pathname || "/";
+      navigate(redirectTo);
+      setIsLoading(false); // Set loading to false after login
+    }, 1500); // Simulate a delay for the login process
   };
 
   return (
@@ -103,8 +102,8 @@ const Login = ({ setIsAuthenticated }) => {
           )}
         </div>
         {errors.login && <p className="error-message">{errors.login}</p>}
-        <button type="submit" className="submit-button">
-          Login
+        <button type="submit" className="submit-button" disabled={isLoading}>
+          {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>
     </div>

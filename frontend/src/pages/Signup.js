@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./Sign.css";
 import { useNavigate } from "react-router-dom";
+import "./Sign.css";
 
-const Sign = ({ setIsAuthenticated }) => {
+const Sign = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -37,14 +37,20 @@ const Sign = ({ setIsAuthenticated }) => {
       return;
     }
 
-    // Save user data in localStorage
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push(formData);
-    localStorage.setItem("users", JSON.stringify(users));
+    // Set loading to true
+    setIsLoading(true);
 
-    alert("Signup successful!");
-    setIsAuthenticated(true);
-    navigate("/login"); // Redirect to login page
+    // Simulate async signup process (you can replace this with your actual API call)
+    setTimeout(() => {
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      users.push(formData);
+      localStorage.setItem("users", JSON.stringify(users));
+
+      alert("Signup successful!");
+      setIsAuthenticated(true);
+      navigate("/login"); // Redirect to login page
+      setIsLoading(false); // Set loading to false after signup
+    }, 1500); // Simulate a delay for the signup process
   };
 
   return (
@@ -81,7 +87,9 @@ const Sign = ({ setIsAuthenticated }) => {
             required
           />
         </div>
-        <button type="submit">Signup</button>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Signing up..." : "Signup"}
+        </button>
       </form>
     </div>
   );

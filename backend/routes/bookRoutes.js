@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const booksData = require("../data/booksData");
-const BorrowHistory = require("../models/BorrowHistory");
+const BorrowHistory = require("../models/Borrow");
 
 router.get("/", (req, res) => {
   res.json(booksData);

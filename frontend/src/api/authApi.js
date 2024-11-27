@@ -1,9 +1,10 @@
 // src/api/authApi.js
 
-// Function to log in a user
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 export const loginUser = async (credentials) => {
   try {
-    const response = await fetch("/api/login", {
+    const response = await fetch(`${apiUrl}/api/auth/login`, {
       method: "POST",
       body: JSON.stringify(credentials),
       headers: {
@@ -12,33 +13,32 @@ export const loginUser = async (credentials) => {
     });
 
     if (!response.ok) {
-      // Handle specific errors based on status codes
       const errorData = await response.json();
       throw new Error(errorData.message || "Login failed");
     }
 
-    const data = await response.json();
-    return data; // Return user data (e.g., JWT token, user info)
+    return await response.json();
   } catch (error) {
     console.error("Login error:", error);
     throw new Error(error.message || "An error occurred during login");
   }
 };
 
-// Function to log out a user
 export const logoutUser = async () => {
   try {
-    const response = await fetch("/api/logout", {
+    const response = await fetch(`${apiUrl}/api/auth/logout`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {
-      throw new Error("Logout failed");
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Logout failed");
     }
 
-    // Optionally, handle the response if there is any logout success data
-    const data = await response.json();
-    return data; // e.g., success message or token invalidation
+    return await response.json();
   } catch (error) {
     console.error("Logout error:", error);
     throw new Error("An error occurred during logout");

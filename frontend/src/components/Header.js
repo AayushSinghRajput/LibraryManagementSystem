@@ -68,6 +68,9 @@ const Header = () => {
         <Link to="/login">
           <button className="auth-button">Login</button>
         </Link>
+        <Link to="/logout">
+          <button className="auth-button">Logout</button>
+        </Link>
         <button className="menu-toggle" onClick={toggleMenu}>
           ☰
         </button>

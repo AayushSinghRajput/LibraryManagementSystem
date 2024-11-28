@@ -4,12 +4,25 @@ import { useAuth } from "../context/AuthContext";
 
 const Books = ({ books, setBooks }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState(books);
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
   useEffect(() => {
     setFilteredBooks(books);
   }, [books]);
+
+  // Debounced search
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setFilteredBooks(
+        books.filter((book) =>
+          book.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, [searchTerm, books]);
 
   const handleDelete = (bookId) => {
     if (window.confirm("Are you sure you want to delete this book?")) {
@@ -18,32 +31,19 @@ const Books = ({ books, setBooks }) => {
     }
   };
 
-  const handleSearch = () => {
-    const filtered = books.filter((book) =>
-      book.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredBooks(filtered);
-  };
-
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
-    if (!e.target.value.trim()) setFilteredBooks(books);
-  };
-
   const handleIssue = async (book) => {
     if (!user) return alert("Please log in to issue a book.");
+    setLoading(true);
+    const token = localStorage.getItem("authToken");
     try {
       const response = await fetch("/api/borrow/issue", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, //Include token
         },
-        body: JSON.stringify({
-          userId: user._id,
-          bookId: book.id,
-        }),
+        body: JSON.stringify({ userId: user._id, bookId: book.id }),
       });
-
       if (response.ok) {
         alert("Book issued successfully!");
       } else {
@@ -51,24 +51,21 @@ const Books = ({ books, setBooks }) => {
         alert(errorData.message || "Failed to issue book.");
       }
     } catch (error) {
-      alert("Error issuing book.");
+      alert("Error issuing book. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleReturn = async (book) => {
     if (!user) return alert("Please log in to return a book.");
+    setLoading(true);
     try {
       const response = await fetch("/api/borrow/return", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user._id,
-          bookId: book.id,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user._id, bookId: book.id }),
       });
-
       if (response.ok) {
         alert("Book returned successfully!");
       } else {
@@ -76,7 +73,9 @@ const Books = ({ books, setBooks }) => {
         alert(errorData.message || "Failed to return book.");
       }
     } catch (error) {
-      alert("Error returning book.");
+      alert("Error returning book. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -88,27 +87,37 @@ const Books = ({ books, setBooks }) => {
           type="text"
           placeholder="Search by book name..."
           value={searchTerm}
-          onChange={handleInputChange}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button onClick={handleSearch}>Search</button>
       </div>
+
+      {loading && <p>Loading...</p>}
+
       <ul className="books-list">
-        {filteredBooks.map((book) => (
-          <li key={book.id} className="book-item">
-            <h3>{book.title}</h3>
-            <p>Author: {book.author}</p>
-            <p>Genre: {book.genre || "Not specified"}</p>
-            <p>
-              Published Date:{" "}
-              {book.publishedDate
-                ? new Date(book.publishedDate).toLocaleDateString()
-                : "Unknown"}
-            </p>
-            <button onClick={() => handleIssue(book)}>Issue</button>
-            <button onClick={() => handleReturn(book)}>Return</button>
-            <button onClick={() => handleDelete(book.id)}>Delete</button>
-          </li>
-        ))}
+        {filteredBooks.length > 0 ? (
+          filteredBooks.map((book) => (
+            <li key={book.id} className="book-item">
+              <h3>{book.title}</h3>
+              <p>Author: {book.author}</p>
+              <p>Genre: {book.genre || "Not specified"}</p>
+              <p>
+                Published Date:{" "}
+                {book.publishedDate
+                  ? new Date(book.publishedDate).toLocaleDateString()
+                  : "Unknown"}
+              </p>
+              <button onClick={() => handleIssue(book)} disabled={loading}>
+                Issue
+              </button>
+              <button onClick={() => handleReturn(book)} disabled={loading}>
+                Return
+              </button>
+              <button onClick={() => handleDelete(book.id)}>Delete</button>
+            </li>
+          ))
+        ) : (
+          <p>No books found.</p>
+        )}
       </ul>
     </div>
   );

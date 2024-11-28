@@ -14,6 +14,7 @@ import Books from "./pages/Books";
 import BorrowHistory from "./pages/BorrowHistory";
 import Users from "./pages/Users";
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
@@ -25,7 +26,9 @@ import { booksData } from "./data/booksData"; // Import initial data
 import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return JSON.parse(localStorage.getItem("isAuthenticated")) || false;
+  });
   const [isLoading, setIsLoading] = useState(false); //Track loading state
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -33,6 +36,7 @@ const App = () => {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+    localStorage.removeItem("isAuthenticated");
   };
 
   // Initialize books from localStorage or default to booksData
@@ -45,6 +49,10 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(books));
   }, [books]);
+
+  useEffect(() => {
+    localStorage.setItem("isAuthenticated", JSON.stringify(isAuthenticated));
+  }, [isAuthenticated]);
 
   // Protected Route Component
   const PrivateRoute = ({ element }) => {
@@ -101,6 +109,16 @@ const App = () => {
               }
             />
             <Route
+              path="/logout"
+              element={
+                <Logout
+                  setIsAuthenticated={handleLogout}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                />
+              }
+            />
+            <Route
               path="/signup"
               element={
                 <Signup
@@ -111,7 +129,11 @@ const App = () => {
               }
             />
             <Route path="/about" element={<About />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/dashboard"
+              element={<PrivateRoute element={<Dashboard />} />}
+            />
+
             <Route path="/settings" element={<Settings />} />
             <Route
               path="/manage-users"

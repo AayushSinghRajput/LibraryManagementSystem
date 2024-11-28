@@ -27,6 +27,7 @@ const Sign = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!isValidEmail(formData.email)) {
       alert("Please enter a valid email.");
       return;
@@ -37,20 +38,25 @@ const Sign = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
       return;
     }
 
-    // Set loading to true
-    setIsLoading(true);
+    const newUser = {
+      id: Date.now(), // Unique ID
+      ...formData,
+    };
 
-    // Simulate async signup process (you can replace this with your actual API call)
+    // Save user to localStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("currentUser", JSON.stringify(newUser)); // Save the logged-in user
+
+    setIsLoading(true); // Simulate async process
+
     setTimeout(() => {
-      const users = JSON.parse(localStorage.getItem("users")) || [];
-      users.push(formData);
-      localStorage.setItem("users", JSON.stringify(users));
-
       alert("Signup successful!");
-      setIsAuthenticated(true);
-      navigate("/login"); // Redirect to login page
-      setIsLoading(false); // Set loading to false after signup
-    }, 1500); // Simulate a delay for the signup process
+      setIsAuthenticated(true); // Mark user as authenticated
+      navigate("/login"); // Redirect to the login page
+      setIsLoading(false); // End loading state
+    }, 1500); // Simulated delay
   };
 
   return (

@@ -2,9 +2,19 @@ const express = require("express");
 const router = express.Router();
 const booksData = require("../data/booksData");
 const BorrowHistory = require("../models/Borrow");
+const verifyToken = require("../middlewares/verifyToken");
+const { getBooks, addBook } = require("../controllers/bookController");
 
 router.get("/", (req, res) => {
-  res.json(booksData);
+  // res.json(booksData);
+  res.json("/", getBooks);
+});
+router.post("/", verifyToken, addBook); //protect this route with token
+
+router.post("/issue", verifyToken, async (req, res) => {
+  const { userId, bookId } = req.body;
+  // Issue book logic here
+  res.status(200).json({ message: "Book issued successfully" });
 });
 
 router.post("/issue/:bookId", async (req, res) => {

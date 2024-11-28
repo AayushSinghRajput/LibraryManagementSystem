@@ -9,6 +9,7 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
     email: "",
     password: "",
   });
+
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -49,10 +50,8 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
       return;
     }
 
-    // Set loading to true
     setIsLoading(true);
 
-    // Simulate async login process (you can replace this with your actual API call)
     setTimeout(() => {
       const users = JSON.parse(localStorage.getItem("users")) || [];
       const user = users.find(
@@ -65,12 +64,15 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
         return;
       }
 
+      // Store the logged-in user in localStorage
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
       alert("You are logged in!");
       setIsAuthenticated(true);
       const redirectTo = location.state?.from?.pathname || "/";
       navigate(redirectTo);
-      setIsLoading(false); // Set loading to false after login
-    }, 1500); // Simulate a delay for the login process
+      setIsLoading(false);
+    }, 1500);
   };
 
   return (

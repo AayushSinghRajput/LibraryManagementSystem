@@ -14,6 +14,7 @@ export const loginUser = async (credentials) => {
 
     if (!response.ok) {
       const errorData = await response.json();
+      console.log(errorData);
       throw new Error(errorData.message || "Login failed");
     }
 

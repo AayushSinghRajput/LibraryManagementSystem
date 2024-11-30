@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const storedUser = localStorage.getItem("authUser");
         const storedToken = localStorage.getItem("authToken");
+        console.log(storedUser, storedToken);
         if (storedUser && storedToken) {
           setUser(JSON.parse(storedUser)); // Parse and set user
           setToken(storedToken);
@@ -33,6 +34,8 @@ export const AuthProvider = ({ children }) => {
     setToken(authToken);
     localStorage.setItem("authUser", JSON.stringify(userData)); // Store user persistently
     localStorage.setItem("authToken", authToken); //Save token persistenly
+    console.log("Stored user:", localStorage.getItem("authUser"));
+    console.log("Stored token:", localStorage.getItem("authToken"));
   };
 
   // Logout function

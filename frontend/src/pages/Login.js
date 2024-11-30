@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import "./Login.css";
+import { loginUser } from "../api/authApi";
 
 const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,7 +29,7 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
 
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
 
@@ -51,28 +49,28 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
     }
 
     setIsLoading(true);
-
-    setTimeout(() => {
-      const users = JSON.parse(localStorage.getItem("users")) || [];
-      const user = users.find(
-        (u) => u.email === formData.email && u.password === formData.password
-      );
-
-      if (!user) {
-        setErrors({ login: "Invalid email or password. Please try again." });
-        setIsLoading(false);
-        return;
+    try {
+      const response = await loginUser({
+        email: formData.email,
+        password: formData.password,
+      });
+      if (response.success) {
+        setIsAuthenticated(true);
+        setFormData({ email: "", password: "" }); //Reset form
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          login: response.message || "Invalid email or password.",
+        }));
       }
-
-      // Store the logged-in user in localStorage
-      localStorage.setItem("currentUser", JSON.stringify(user));
-
-      alert("You are logged in!");
-      setIsAuthenticated(true);
-      const redirectTo = location.state?.from?.pathname || "/";
-      navigate(redirectTo);
+    } catch (error) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        login: "An error occured. Please try again later.",
+      }));
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (

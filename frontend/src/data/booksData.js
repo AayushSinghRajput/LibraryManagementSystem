@@ -5,6 +5,7 @@ export const booksData = [
     author: "F. Scott Fitzgerald",
     genre: "Fiction",
     publishedDate: "1925-04-10",
+    image: "/assets/book.avif",
   },
   {
     id: "2",
@@ -12,6 +13,7 @@ export const booksData = [
     author: "Herman Melville",
     genre: "Fiction",
     publishedDate: "1851-10-18",
+    image: "/assets/book.avif",
   },
   {
     id: "3",
@@ -19,6 +21,7 @@ export const booksData = [
     author: "George Orwell",
     genre: "Dystopian",
     publishedDate: "1949-06-08",
+    image: "/assets/book.avif",
   },
   {
     id: "4",
@@ -26,6 +29,7 @@ export const booksData = [
     author: "Harper Lee",
     genre: "Fiction",
     publishedDate: "1960-07-11",
+    image: "/assets/book.avif",
   },
   {
     id: "5",
@@ -33,6 +37,7 @@ export const booksData = [
     author: "Jane Austen",
     genre: "Romance",
     publishedDate: "1813-01-28",
+    image: "/assets/book.avif",
   },
   {
     id: "6",
@@ -40,6 +45,7 @@ export const booksData = [
     author: "J.D. Salinger",
     genre: "Fiction",
     publishedDate: "1951-07-16",
+    image: "/assets/book.avif",
   },
   {
     id: "7",
@@ -47,6 +53,7 @@ export const booksData = [
     author: "J.R.R. Tolkien",
     genre: "Fantasy",
     publishedDate: "1937-09-21",
+    image: "/assets/book.avif",
   },
   {
     id: "8",
@@ -54,6 +61,7 @@ export const booksData = [
     author: "Leo Tolstoy",
     genre: "Historical Fiction",
     publishedDate: "1869-01-01",
+    image: "/assets/book.avif",
   },
   {
     id: "9",
@@ -61,6 +69,7 @@ export const booksData = [
     author: "Fyodor Dostoevsky",
     genre: "Philosophical Fiction",
     publishedDate: "1866-01-01",
+    image: "/assets/book.avif",
   },
   {
     id: "10",
@@ -68,6 +77,7 @@ export const booksData = [
     author: "Paulo Coelho",
     genre: "Adventure",
     publishedDate: "1988-05-01",
+    image: "/assets/book.avif",
   },
   {
     id: "11",
@@ -75,6 +85,7 @@ export const booksData = [
     author: "Aldous Huxley",
     genre: "Dystopian",
     publishedDate: "1932-08-01",
+    image: "/assets/book.avif",
   },
   {
     id: "12",
@@ -82,6 +93,7 @@ export const booksData = [
     author: "Victor Hugo",
     genre: "Historical Fiction",
     publishedDate: "1862-01-01",
+    image: "/assets/book.avif",
   },
   {
     id: "13",
@@ -89,6 +101,7 @@ export const booksData = [
     author: "Dante Alighieri",
     genre: "Epic Poetry",
     publishedDate: "1320-01-01",
+    image: "/assets/book.avif",
   },
   {
     id: "14",
@@ -96,6 +109,7 @@ export const booksData = [
     author: "Mary Shelley",
     genre: "Horror",
     publishedDate: "1818-01-01",
+    image: "/assets/book.avif",
   },
   {
     id: "15",
@@ -103,6 +117,7 @@ export const booksData = [
     author: "Homer",
     genre: "Epic Poetry",
     publishedDate: "-800-01-01",
+    image: "/assets/book.avif",
   },
   {
     id: "16",
@@ -110,6 +125,7 @@ export const booksData = [
     author: "Charlotte Brontë",
     genre: "Fiction",
     publishedDate: "1847-10-16",
+    image: "/assets/book.avif",
   },
   {
     id: "17",
@@ -117,6 +133,7 @@ export const booksData = [
     author: "Emily Brontë",
     genre: "Gothic Fiction",
     publishedDate: "1847-12-01",
+    image: "/assets/book.avif",
   },
   {
     id: "18",
@@ -124,6 +141,7 @@ export const booksData = [
     author: "Leo Tolstoy",
     genre: "Fiction",
     publishedDate: "1878-01-01",
+    image: "/assets/book.avif",
   },
   {
     id: "19",
@@ -131,6 +149,7 @@ export const booksData = [
     author: "Bram Stoker",
     genre: "Horror",
     publishedDate: "1897-05-26",
+    image: "/assets/book.avif",
   },
   {
     id: "20",
@@ -138,6 +157,7 @@ export const booksData = [
     author: "J.R.R. Tolkien",
     genre: "Fantasy",
     publishedDate: "1954-07-29",
+    image: "/assets/book.avif",
   },
   {
     id: "21",
@@ -145,6 +165,7 @@ export const booksData = [
     author: "Miguel de Cervantes",
     genre: "Adventure",
     publishedDate: "1605-01-16",
+    image: "/assets/book.avif",
   },
   {
     id: "22",
@@ -152,6 +173,7 @@ export const booksData = [
     author: "Oscar Wilde",
     genre: "Philosophical Fiction",
     publishedDate: "1890-07-20",
+    image: "/assets/book.avif",
   },
   {
     id: "23",
@@ -159,6 +181,7 @@ export const booksData = [
     author: "Charles Dickens",
     genre: "Historical Fiction",
     publishedDate: "1859-04-30",
+    image: "/assets/book.avif",
   },
   {
     id: "24",
@@ -166,6 +189,7 @@ export const booksData = [
     author: "Fyodor Dostoevsky",
     genre: "Philosophical Fiction",
     publishedDate: "1880-11-01",
+    image: "/assets/book.avif",
   },
   {
     id: "25",
@@ -173,5 +197,6 @@ export const booksData = [
     author: "Charles Dickens",
     genre: "Fiction",
     publishedDate: "1861-08-01",
+    image: "/assets/book.avif",
   },
 ];

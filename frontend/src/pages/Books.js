@@ -84,6 +84,7 @@ const Books = ({ books, setBooks }) => {
       <div className="search-container">
         <h2>Books List</h2>
         <input
+          className="search-input"
           type="text"
           placeholder="Search by book name..."
           value={searchTerm}
@@ -97,6 +98,12 @@ const Books = ({ books, setBooks }) => {
         {filteredBooks.length > 0 ? (
           filteredBooks.map((book) => (
             <li key={book.id} className="book-item">
+              <img
+                className="book-image"
+                src="https://i0.wp.com/apeejay.news/wp-content/uploads/2023/10/281023-10-most-read-books-Blog.jpg?resize=740%2C524&ssl=1"
+                alt="book-image"
+              ></img>
+              {/* <img src={book.image} alt={book.title} className="book-image" /> */}
               <h3>{book.title}</h3>
               <p>Author: {book.author}</p>
               <p>Genre: {book.genre || "Not specified"}</p>
@@ -106,13 +113,26 @@ const Books = ({ books, setBooks }) => {
                   ? new Date(book.publishedDate).toLocaleDateString()
                   : "Unknown"}
               </p>
-              <button onClick={() => handleIssue(book)} disabled={loading}>
+              <button
+                onClick={() => handleIssue(book)}
+                disabled={loading}
+                className="issue-button"
+              >
                 Issue
               </button>
-              <button onClick={() => handleReturn(book)} disabled={loading}>
+              <button
+                onClick={() => handleReturn(book)}
+                disabled={loading}
+                className="return-button"
+              >
                 Return
               </button>
-              <button onClick={() => handleDelete(book.id)}>Delete</button>
+              <button
+                onClick={() => handleDelete(book.id)}
+                className="return-button"
+              >
+                Delete
+              </button>
             </li>
           ))
         ) : (

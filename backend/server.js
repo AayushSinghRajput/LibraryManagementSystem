@@ -25,7 +25,7 @@ dbConnect();
 // Middleware setup
 app.use(express.json()); // Parse incoming JSON requests
 app.use(morgan("dev")); // Logger middleware for requests
-app.use(cors()); // Enable Cross-Origin Resource Sharing (CORS)
+app.use(cors({ origin: "http://localhost:3000" })); // Enable Cross-Origin Resource Sharing (CORS)
 
 // API Routes
 app.use("/api/auth", authRoutes); // Authentication routes

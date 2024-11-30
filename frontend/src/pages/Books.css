@@ -70,11 +70,13 @@
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
     margin: 5px 5px 0 0;
+
 }
 
 .issue-button {
     background-color: green;
     color: #fff;
+
 }
 
 .issue-button:hover {
@@ -105,6 +107,7 @@
     /* Align items vertically */
     gap: 10px;
     /* Space between input and button */
+    justify-content: center;
 }
 
 .search-input {
@@ -116,7 +119,7 @@
     border-radius: 4px;
     box-sizing: border-box;
     /* Ensure consistent padding and border rendering */
-    margin-left: 450px;
+    margin-left: 300px;
 }
 
 .search-button {
@@ -142,6 +145,17 @@
     background-color: #0056b3;
 }
 
+.book-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.popular-book-item:hover .book-image {
+    transform: scale(1.05);
+}
 
 
 /* Responsive design */

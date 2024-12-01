@@ -54,13 +54,13 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
         email: formData.email,
         password: formData.password,
       });
-      if (response.success) {
+      if (response) {
         setIsAuthenticated(true);
         setFormData({ email: "", password: "" }); //Reset form
       } else {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          login: response.message || "Invalid email or password.",
+          login: response.error || "Invalid email or password.",
         }));
       }
     } catch (error) {

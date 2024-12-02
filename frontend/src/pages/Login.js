@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { loginUser } from "../api/authApi";
 
@@ -13,6 +14,7 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
     password: "",
     login: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,13 +56,14 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
         email: formData.email,
         password: formData.password,
       });
-      if (response.success) {
+      if (response) {
         setIsAuthenticated(true);
         setFormData({ email: "", password: "" }); //Reset form
+        navigate("./books"); //Navigate to books page
       } else {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          login: response.message || "Invalid email or password.",
+          login: response.error || "Invalid email or password.",
         }));
       }
     } catch (error) {

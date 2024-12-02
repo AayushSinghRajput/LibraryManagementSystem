@@ -1,45 +1,56 @@
-// src/api/authApi.js
-
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
+// Helper to handle API responses
+const handleResponse = async (response) => {
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message || "An error occurred");
+  }
+  return data;
+};
+
+// Login function
 export const loginUser = async (credentials) => {
   try {
-    const response = await fetch(`${apiUrl}/api/auth/login`, {
+    const response = await fetch(`${apiUrl}/auth/login`, {
       method: "POST",
-      body: JSON.stringify(credentials),
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(credentials),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.log(errorData);
-      throw new Error(errorData.message || "Login failed");
+    const data = await handleResponse(response);
+
+    // Store token if needed
+    if (data.token) {
+      localStorage.setItem("authToken", data.token); // Store token securely
     }
 
-    return await response.json();
+    return data;
   } catch (error) {
     console.error("Login error:", error);
     throw new Error(error.message || "An error occurred during login");
   }
 };
 
+// Logout function
 export const logoutUser = async () => {
   try {
-    const response = await fetch(`${apiUrl}/api/auth/logout`, {
+    const response = await fetch(`${apiUrl}/auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Send token for authentication if needed
       },
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Logout failed");
-    }
+    const data = await handleResponse(response);
 
-    return await response.json();
+    // Clear token on logout
+    localStorage.removeItem("authToken");
+
+    return data;
   } catch (error) {
     console.error("Logout error:", error);
     throw new Error("An error occurred during logout");

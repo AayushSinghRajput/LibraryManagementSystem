@@ -20,7 +20,7 @@ dotenv.config(); // Load environment variables from .env file
 const app = express();
 
 // Database connection
- (async () => await dbConnect())();
+(async () => await dbConnect())();
 
 // Middleware setup
 app.use(express.json()); // Parse incoming JSON requests
@@ -45,4 +45,6 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log("testing.");
 });
+console.log("testing.");

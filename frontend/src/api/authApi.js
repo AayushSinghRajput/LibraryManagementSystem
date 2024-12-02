@@ -8,16 +8,15 @@ const handleResponse = async (response) => {
   }
   return data;
 };
-
 // Login function
-export const loginUser = async (credentials) => {
+export const loginUser = async ({ email, password }) => {
   try {
     const response = await fetch(`${apiUrl}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(credentials),
+      body: JSON.stringify({ email, password }),
     });
 
     const data = await handleResponse(response);
@@ -37,11 +36,12 @@ export const loginUser = async (credentials) => {
 // Logout function
 export const logoutUser = async () => {
   try {
+    const token = localStorage.getItem("authToken");
     const response = await fetch(`${apiUrl}/auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Send token for authentication if needed
+        ...(token && { Authorization: `Bearer ${token}` }), //add token only if it exists
       },
     });
 

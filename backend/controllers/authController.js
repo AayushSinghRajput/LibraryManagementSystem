@@ -1,8 +1,13 @@
 const authService = require("../services/authService");
 
 // User Login
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+const loginUser = async ({ email, password }) => {
+  const user = await authService.loginUser(email, password);
+  if (!user)
+    return {
+      status: 401,
+      message: "Invalid email or password",
+    };
   try {
     const { token } = await authService.loginUser(email, password);
 

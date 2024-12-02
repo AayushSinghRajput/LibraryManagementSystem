@@ -8,39 +8,31 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
     email: "",
     password: "",
   });
-
   const [errors, setErrors] = useState({
     email: "",
     password: "",
     login: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    setErrors({
-      ...errors,
-      [name]: "",
-      login: "",
-    });
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "", login: "" });
   };
 
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newErrors = {};
 
-    // Validate email
+    const newErrors = {};
     if (!isValidEmail(formData.email)) {
       newErrors.email = "Please enter a valid email address.";
     }
 
-    // Validate password length
     if (formData.password.length < 6) {
       newErrors.password = "Password must be at least 6 characters long.";
     }
@@ -52,25 +44,21 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
 
     setIsLoading(true);
     try {
-      const response = await loginUser({
-        email: formData.email,
-        password: formData.password,
-      });
+      const response = await loginUser(formData);
       if (response) {
         setIsAuthenticated(true);
-        setFormData({ email: "", password: "" }); //Reset form
-        navigate("./books"); //Navigate to books page
+        navigate("/books");
       } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          login: response.error || "Invalid email or password.",
-        }));
+        setErrors({
+          ...errors,
+          login: response?.error || "Invalid credentials.",
+        });
       }
     } catch (error) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        login: "An error occured. Please try again later.",
-      }));
+      setErrors({
+        ...errors,
+        login: "Network error. Please try again later.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -91,21 +79,37 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
           />
           {errors.email && <p className="error-message">{errors.email}</p>}
         </div>
+
         <div className="form-group">
           <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+          <div className="password-input-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
           {errors.password && (
             <p className="error-message">{errors.password}</p>
           )}
         </div>
+
         {errors.login && <p className="error-message">{errors.login}</p>}
-        <button type="submit" className="submit-button" disabled={isLoading}>
+
+        <button
+          type="submit"
+          className="submit-button"
+          disabled={isLoading || !formData.email || !formData.password}
+        >
           {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>

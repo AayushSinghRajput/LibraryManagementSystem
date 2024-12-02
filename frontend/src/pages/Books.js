@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./Books.css";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Books = ({ books, setBooks }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredBooks, setFilteredBooks] = useState(books);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setFilteredBooks(books);
@@ -44,8 +46,9 @@ const Books = ({ books, setBooks }) => {
         },
         body: JSON.stringify({ userId: user._id, bookId: book.id }),
       });
-      if (response.ok) {
+      if (response) {
         alert("Book issued successfully!");
+        navigate("./borrow-history");
       } else {
         const errorData = await response.json();
         alert(errorData.message || "Failed to issue book.");
@@ -66,7 +69,7 @@ const Books = ({ books, setBooks }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: user._id, bookId: book.id }),
       });
-      if (response.ok) {
+      if (response) {
         alert("Book returned successfully!");
       } else {
         const errorData = await response.json();

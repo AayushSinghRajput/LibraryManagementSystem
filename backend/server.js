@@ -20,7 +20,7 @@ dotenv.config(); // Load environment variables from .env file
 const app = express();
 
 // Database connection
-dbConnect();
+ (async () => await dbConnect())();
 
 // Middleware setup
 app.use(express.json()); // Parse incoming JSON requests

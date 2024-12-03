@@ -21,33 +21,22 @@ const registerUser = async (userData) => {
     password: hashedPassword,
   });
 
-    await newUser.save();
-    res.status(201).json({ message: "User registered successfully" });
+  await newUser.save();
+  res.status(201).json({ message: "User registered successfully" });
 };
 
 const loginUser = async (email, password) => {
   const user = await User.findOne({ email });
-  if (!user) {
-    throw new Error("User not found");
-  }
+  if (!user) throw new Error("User not found");
+
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    throw new Error("Invalid credentials");
-  }
-const loginUser = async (email, password) => {
-    const user = await User.findOne({ email });
-    if (!user) throw new Error('User not found')
+  if (!isMatch) throw new Error("Invalid credentials");
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      throw new Error('Invalid credentials')
+  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    return { token };
-
+  return { token };
 };
 
 const logoutUser = async (email) => {

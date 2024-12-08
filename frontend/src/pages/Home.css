@@ -2,6 +2,7 @@
 .home-container {
     padding: 20px;
     text-align: center;
+    margin-left: 300px;
     font-family: Arial, sans-serif;
 }
 
@@ -58,7 +59,6 @@ nav a.active-link {
 /* Popular Books Section */
 .popular-books-section {
     margin-top: 30px;
-    margin-left: 250px;
     padding: 20px;
     background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
     border-radius: 10px;
@@ -79,7 +79,8 @@ nav a.active-link {
 .popular-books-list {
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* Auto-adjusting grid */
     list-style: none;
     padding: 0;
     margin: 0;
@@ -130,7 +131,9 @@ nav a.active-link {
 }
 
 /* Media Queries for Responsiveness */
-@media (max-width: 768px) {
+
+/* Tablet and Small Screens */
+@media (max-width: 1024px) {
     .popular-books-section {
         padding: 15px;
     }
@@ -147,10 +150,13 @@ nav a.active-link {
     .book-genre {
         font-size: 12px;
     }
+
+    nav ul {
+        flex-wrap: wrap;
+    }
 }
 
-
-/* Responsive Styles */
+/* Mobile (max-width: 768px) */
 @media (max-width: 768px) {
     .home-header {
         font-size: 2rem;
@@ -168,8 +174,14 @@ nav a.active-link {
     nav li {
         font-size: 1rem;
     }
+
+    .popular-books-list {
+        grid-template-columns: 1fr;
+        /* Single column for small screens */
+    }
 }
 
+/* Extra Small Devices (max-width: 480px) */
 @media (max-width: 480px) {
     .home-header {
         font-size: 1.5rem;
@@ -181,5 +193,17 @@ nav a.active-link {
 
     nav a {
         font-size: 1rem;
+    }
+
+    .popular-books-section {
+        padding: 10px;
+    }
+
+    .popular-book-item {
+        padding: 8px;
+    }
+
+    .book-title {
+        font-size: 16px;
     }
 }

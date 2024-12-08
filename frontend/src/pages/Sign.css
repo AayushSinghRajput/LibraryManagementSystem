@@ -1,3 +1,4 @@
+/* Container for Sign-in Form */
 .sign-container {
     width: 100%;
     max-width: 400px;
@@ -8,10 +9,12 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Heading */
 .sign-container h2 {
     text-align: center;
 }
 
+/* Form */
 .sign-form {
     display: flex;
     flex-direction: column;
@@ -29,6 +32,7 @@
     border: 1px solid #ccc;
 }
 
+/* Button */
 button {
     padding: 10px;
     background-color: #ff6347;
@@ -40,4 +44,35 @@ button {
 
 button:hover {
     background-color: #e53e3e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sign-container {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .sign-form input {
+        padding: 12px;
+    }
+
+    button {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sign-container {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .sign-form input {
+        padding: 12px;
+    }
+
+    button {
+        padding: 12px;
+    }
 }

@@ -1,6 +1,7 @@
 /* Main Container */
 .dashboard-container {
-    max-width: 800px;
+    max-width: 1000px;
+    /* Adjusted for larger screens */
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ddd;
@@ -8,6 +9,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     margin-left: 250px;
+    /* Adjusted for desktop sidebars */
 }
 
 /* Title */
@@ -22,7 +24,8 @@
 .dashboard-stats {
     display: grid;
     gap: 15px;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    /* Default layout for desktop */
     text-align: center;
 }
 
@@ -81,19 +84,65 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+
+/* Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .dashboard-container {
+        margin-left: 0;
+        /* Remove left margin for tablets */
+        padding: 15px;
+    }
+
     .dashboard-stats {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        /* Two columns for tablets */
+    }
+
+    .dashboard-heading {
+        font-size: 1.8rem;
     }
 }
 
-@media (max-width: 480px) {
+/* Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 10px;
+    }
+
     .dashboard-stats {
         grid-template-columns: 1fr;
+        /* Single column for mobile */
+    }
+
+    .dashboard-stat {
+        padding: 10px;
+    }
+
+    .dashboard-heading {
+        font-size: 1.5rem;
     }
 
     .dashboard-button {
         font-size: 1rem;
         padding: 10px 15px;
+    }
+}
+
+/* Extra Small Devices (max-width: 480px) */
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: 5px;
+    }
+
+    .dashboard-stat p {
+        font-size: 1rem;
+    }
+
+    .dashboard-button {
+        font-size: 0.9rem;
+    }
+
+    .dashboard-heading {
+        font-size: 1.3rem;
     }
 }

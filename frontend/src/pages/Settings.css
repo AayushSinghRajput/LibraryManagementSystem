@@ -12,13 +12,11 @@ body.dark {
 /* Container */
 .settings-container {
     max-width: 700px;
-    margin: 60px auto;
+    margin-left: 300px;
     padding: 25px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.8);
-    /* Light translucent effect */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    /* Soft shadow */
     transition: all 0.3s ease;
 }
 
@@ -33,12 +31,12 @@ body.dark .settings-container {
     text-align: center;
     margin-bottom: 30px;
     color: #3498db;
-    /* Light blue for accent */
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: bold;
 }
 
+/* Buttons */
 .reset-button {
     padding: 10px;
     font-size: 1rem;
@@ -112,7 +110,6 @@ body.dark .settings-container {
 
 .settings-button:hover {
     transform: translateY(-3px);
-    /* Subtle hover effect */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -161,24 +158,14 @@ body.high-contrast .settings-section {
     background-color: #e74c3c;
 }
 
-.settings-label input {
-    transform: scale(1.2);
-}
-
 /* Profile Image */
 .profile-pic {
     width: 100px;
-    /* Set a fixed width */
     height: 100px;
-    /* Set a fixed height */
     border-radius: 50%;
-    /* Make the image circular */
     object-fit: cover;
-    /* Ensure the image fills the circle while maintaining its aspect ratio */
     margin-top: 10px;
 }
-
-
 
 /* Transitions for Theme Changes */
 body {
@@ -186,13 +173,67 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+
+/* For Desktop and Larger Screens */
+@media (min-width: 1024px) {
+    .settings-container {
+        padding: 25px;
+    }
+
+    .settings-heading {
+        font-size: 2.5rem;
+    }
+
+    .settings-button {
+        font-size: 1.2rem;
+        padding: 12px 30px;
+    }
+
+    .settings-section {
+        padding: 20px;
+    }
+}
+
+/* For Tablet Screens */
+@media (max-width: 1024px) and (min-width: 768px) {
     .settings-container {
         padding: 20px;
+        max-width: 90%;
     }
 
     .settings-heading {
         font-size: 2rem;
+    }
+
+    .settings-button {
+        font-size: 1.1rem;
+        padding: 10px 25px;
+    }
+
+    .settings-section {
+        padding: 18px;
+    }
+
+    .profile-pic {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* For Mobile Screens */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    .settings-container {
+        padding: 15px;
+        width: 100%;
+        margin: 20px auto;
+    }
+
+    .settings-heading {
+        font-size: 1.8rem;
     }
 
     .settings-button {
@@ -203,19 +244,34 @@ body {
     .settings-section {
         padding: 15px;
     }
+
+    .profile-pic {
+        width: 80px;
+        height: 80px;
+    }
 }
 
 @media (max-width: 480px) {
     .settings-container {
-        padding: 15px;
+        padding: 12px;
+        width: 100%;
     }
 
     .settings-heading {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .settings-button {
         font-size: 0.9rem;
         padding: 8px 16px;
+    }
+
+    .settings-section {
+        padding: 12px;
+    }
+
+    .profile-pic {
+        width: 70px;
+        height: 70px;
     }
 }

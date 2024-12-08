@@ -11,7 +11,7 @@ const handleResponse = async (response) => {
 // Login function
 export const loginUser = async ({ email, password }) => {
   try {
-    const response = await fetch(`${apiUrl}/auth/login`, {
+    const response = await fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,11 +33,36 @@ export const loginUser = async ({ email, password }) => {
   }
 };
 
+//signup function
+export const SignUser = async ({ name, email, password }) => {
+  try {
+    const response = await fetch(`${apiUrl}/Sign`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    const data = await handleResponse(response);
+
+    // Store token if needed
+    if (data.token) {
+      localStorage.setItem("authToken", data.token); // Store token securely
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Signup error:", error);
+    throw new Error(error.message || "An error occurred during Signup");
+  }
+};
+
 // Logout function
 export const logoutUser = async () => {
   try {
     const token = localStorage.getItem("authToken");
-    const response = await fetch(`${apiUrl}/auth/logout`, {
+    const response = await fetch(`${apiUrl}/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

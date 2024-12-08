@@ -8,6 +8,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* User data container */
 .user-data {
     padding: 20px;
     max-width: 800px;
@@ -15,20 +16,25 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     background-color: #fff;
-    margin-left: 310px;
+    margin-left: auto;
+    /* Centering on larger screens */
+    margin-right: auto;
 }
 
+/* Heading */
 h2 {
     text-align: center;
     margin-bottom: 20px;
 }
 
+/* User actions (buttons or controls) */
 .user-actions {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
 }
 
+/* Search input */
 .search-input {
     padding: 10px;
     width: 100%;
@@ -37,6 +43,7 @@ h2 {
     border-radius: 4px;
 }
 
+/* Table */
 .user-table {
     width: 100%;
     border-collapse: collapse;
@@ -80,6 +87,7 @@ h2 {
     /* Light green for User */
 }
 
+/* No users message */
 .no-users {
     text-align: center;
     font-size: 18px;
@@ -87,7 +95,14 @@ h2 {
 }
 
 /* Responsive styles */
+
+/* Tablet (screens max-width 768px) */
 @media (max-width: 768px) {
+    .user-data {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
     .user-actions {
         flex-direction: column;
         align-items: center;
@@ -98,12 +113,35 @@ h2 {
         padding: 10px;
         font-size: 14px;
     }
+
+    .search-input {
+        max-width: 100%;
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
 }
 
+/* Mobile (screens max-width 480px) */
 @media (max-width: 480px) {
+    .user-data {
+        padding: 15px;
+    }
+
     .user-table {
         display: block;
-        overflow-x: scroll;
+        overflow-x: auto;
+        /* Horizontal scrolling for mobile tables */
+        -webkit-overflow-scrolling: touch;
+        /* Smooth scrolling on mobile */
+    }
+
+    .user-table th,
+    .user-table td {
+        padding: 8px;
+        font-size: 12px;
     }
 
     h2 {

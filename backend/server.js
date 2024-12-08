@@ -3,35 +3,28 @@ const dotenv = require("dotenv");
 const dbConnect = require("./config/dbConnect");
 const cors = require("cors");
 const morgan = require("morgan");
-
-// Routes
-const authRoutes = require("./routes/authRoutes");
-const bookRoutes = require("./routes/bookRoutes");
-const borrowRoutes = require("./routes/borrowRoutes");
-const userRoutes = require("./routes/userRoutes");
-
+// morgan can be used to log requests, errors, and more to the console.
+const {
+  SignRouter,
+  loginRouter,
+  logoutRouter,
+} = require("./routes/authRoutes");
 // Middlewares
 const errorHandler = require("./middlewares/errorHandler");
-const authMiddleware = require("./middlewares/authMiddleware");
-
 dotenv.config(); // Load environment variables from .env file
-
 // Create an Express app
 const app = express();
-
 // Database connection
 (async () => await dbConnect())();
-
 // Middleware setup
 app.use(express.json()); // Parse incoming JSON requests
 app.use(morgan("dev")); // Logger middleware for requests
-app.use(cors); // Enable Cross-Origin Resource Sharing (CORS)
+app.use(cors()); // Enable Cross-Origin Resource Sharing (CORS)
 
-// API Routes
-app.use("/api/auth", authRoutes); // Authentication routes
-app.use("/api/books", bookRoutes); // Book routes
-app.use("/api/borrow", authMiddleware, borrowRoutes); // Borrow book routes
-app.use("/api/users", userRoutes); // User routes
+// routes
+app.use(SignRouter);
+app.use(loginRouter);
+app.use(logoutRouter);
 
 // Error handling middleware (Should be the last middleware)
 app.use(errorHandler);
@@ -43,9 +36,6 @@ app.get("/", (req, res) => {
 
 // Start the server
 const PORT = process.env.PORT || 5000;
-console.log("server is s sjd ", PORT);
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log("testing.");
+  console.log(`Server is running at  http://localhost:${PORT}`);
 });
-console.log("testing.");

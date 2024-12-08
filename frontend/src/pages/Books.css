@@ -1,10 +1,7 @@
-/* Books.css */
-
 /* General container styles */
 .books-container {
     max-width: 1200px;
-    /* margin: 0 auto; */
-    margin-left: 320px;
+    margin-left: 300px;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -25,7 +22,6 @@
 .books-list {
     list-style: none;
     padding: 0;
-    margin-left: 80px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
@@ -70,13 +66,11 @@
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
     margin: 5px 5px 0 0;
-
 }
 
 .issue-button {
     background-color: green;
     color: #fff;
-
 }
 
 .issue-button:hover {
@@ -94,6 +88,7 @@
     transform: translateY(-2px);
 }
 
+/* Books header */
 .books-header {
     display: flex;
     justify-content: space-between;
@@ -101,32 +96,28 @@
     margin-bottom: 20px;
 }
 
+/* Search container */
 .search-container {
     display: flex;
     align-items: center;
-    /* Align items vertically */
     gap: 10px;
-    /* Space between input and button */
     justify-content: center;
 }
 
 .search-input {
     height: 50px;
-    /* Match the height of the button */
     padding: 8px 12px;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    /* Ensure consistent padding and border rendering */
-    margin-left: 300px;
+    width: 100%;
+    max-width: 300px;
 }
 
 .search-button {
     height: 50px;
-    /* Same height as the input */
     width: 80px;
-    /* Slightly wider for better aesthetics */
     font-size: 1rem;
     background-color: #007bff;
     color: white;
@@ -136,15 +127,14 @@
     transition: background-color 0.3s;
     display: flex;
     align-items: center;
-    /* Center text vertically */
     justify-content: center;
-    /* Center text horizontally */
 }
 
 .search-button:hover {
     background-color: #0056b3;
 }
 
+/* Book image */
 .book-image {
     width: 100%;
     height: auto;
@@ -153,13 +143,18 @@
     transition: transform 0.3s ease;
 }
 
-.popular-book-item:hover .book-image {
+.book-item:hover .book-image {
     transform: scale(1.05);
 }
 
-
 /* Responsive design */
-@media screen and (max-width: 768px) {
+
+/* Tablet screens */
+@media screen and (max-width: 1024px) {
+    .books-container {
+        padding: 15px;
+    }
+
     .books-heading {
         font-size: 1.8rem;
     }
@@ -179,13 +174,23 @@
         padding: 8px 12px;
         font-size: 0.9rem;
     }
-}
 
-@media screen and (max-width: 480px) {
-    .books-container {
-        padding: 15px;
+    .search-container {
+        flex-direction: column;
+        gap: 8px;
     }
 
+    .search-input {
+        max-width: 100%;
+    }
+
+    .books-list {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+/* Mobile screens */
+@media screen and (max-width: 768px) {
     .books-heading {
         font-size: 1.5rem;
     }
@@ -198,9 +203,21 @@
         font-size: 1.2rem;
     }
 
+    .book-author,
+    .book-genre,
+    .book-publishedDate {
+        font-size: 0.8rem;
+    }
+
     .issue-button,
     .return-button {
         padding: 6px 10px;
         font-size: 0.8rem;
+    }
+
+    .search-button {
+        font-size: 0.9rem;
+        height: 45px;
+        width: 100px;
     }
 }

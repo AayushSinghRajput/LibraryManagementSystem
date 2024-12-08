@@ -1,7 +1,9 @@
+/* General Styles for Login Container */
 .login-container {
     width: 100%;
     max-width: 400px;
-    margin: 0 auto;
+    /* margin: 0 auto; */
+    margin-left: 530px;
     padding: 20px;
     background-color: #f4f4f4;
     border-radius: 10px;
@@ -10,6 +12,8 @@
 
 .login-container h2 {
     text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
 }
 
 .login-form {
@@ -36,8 +40,72 @@ button {
     color: white;
     cursor: pointer;
     border-radius: 5px;
+    font-size: 1rem;
 }
 
 button:hover {
     background-color: #e53e3e;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Tablet and Small Screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .login-container {
+        padding: 15px;
+        max-width: 350px;
+        /* Adjust max-width for smaller tablets */
+    }
+
+    .login-container h2 {
+        font-size: 1.6rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile Screens (max-width: 768px) */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 10px;
+        max-width: 90%;
+        /* Full width with some padding */
+    }
+
+    .login-container h2 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 12px;
+        /* Increase button padding for better touch interaction */
+    }
+}
+
+/* Extra Small Devices (max-width: 480px) */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 10px;
+        max-width: 90%;
+        /* Use almost full width on very small devices */
+    }
+
+    .login-container h2 {
+        font-size: 1.3rem;
+        /* Smaller font size for small devices */
+    }
+
+    .login-form input {
+        padding: 8px;
+        /* Slightly smaller input fields */
+    }
+
+    button {
+        padding: 12px;
+        /* Increase button padding for better touch interaction */
+        font-size: 1rem;
+    }
 }

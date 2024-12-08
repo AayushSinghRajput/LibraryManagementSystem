@@ -1,6 +1,6 @@
 const bookService = require("../services/bookService");
 
-const getBooks = async (req, res) => {
+const getBooksController = async (req, res) => {
   try {
     const books = await bookService.getAllBooks();
     res.status(200).json(books);
@@ -9,7 +9,7 @@ const getBooks = async (req, res) => {
   }
 };
 
-const addBook = async (req, res) => {
+const addBookController = async (req, res) => {
   const bookData = req.body;
   try {
     const book = await bookService.addBook(bookData);
@@ -44,4 +44,9 @@ const getBookById = async (req, res) => {
   }
 };
 
-module.exports = { getBooks, addBook, issueBook, getBookById };
+module.exports = {
+  getBooksController,
+  addBookController,
+  issueBook,
+  getBookById,
+};

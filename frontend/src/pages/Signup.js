@@ -1,68 +1,76 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Sign.css";
+import { SignUser } from "../api/authApi";
 
 const Sign = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({
+    username: "",
+    email: "",
+    password: "",
+    Sign: "",
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
+    setErrors({ ...errors, [name]: "", Sign: "" });
   };
 
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
-  const isDuplicateEmail = (email) => {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    return users.some((user) => user.email === email);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const newErrors = {};
+    if (!formData.username.trim()) {
+      newErrors.username = "Username is required.";
+    }
     if (!isValidEmail(formData.email)) {
-      alert("Please enter a valid email.");
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters long.";
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
 
-    if (isDuplicateEmail(formData.email)) {
-      alert("This email is already registered. Please use a different email.");
-      return;
+    setIsLoading(true);
+    try {
+      const response = await SignUser(formData);
+
+      if (response?.success) {
+        setIsAuthenticated(true);
+        navigate("/books");
+      } else {
+        setErrors({
+          ...errors,
+          Sign: response?.error || "Signup failed. Please try again.",
+        });
+      }
+    } catch (error) {
+      setErrors({
+        ...errors,
+        Sign: "Network error. Please try again later.",
+      });
+    } finally {
+      setIsLoading(false);
     }
-
-    const newUser = {
-      id: Date.now(), // Unique ID
-      ...formData,
-    };
-
-    // Save user to localStorage
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("currentUser", JSON.stringify(newUser)); // Save the logged-in user
-
-    setIsLoading(true); // Simulate async process
-
-    setTimeout(() => {
-      alert("Signup successful!");
-      setIsAuthenticated(true); // Mark user as authenticated
-      navigate("/login"); // Redirect to the login page
-      setIsLoading(false); // End loading state
-    }, 1500); // Simulated delay
   };
 
   return (
     <div className="sign-container">
       <h2>Signup</h2>
       <form onSubmit={handleSubmit} className="sign-form">
+        {/* Username Field */}
         <div>
           <label>Username</label>
           <input
@@ -72,7 +80,12 @@ const Sign = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
             onChange={handleChange}
             required
           />
+          {errors.username && (
+            <p className="error-message">{errors.username}</p>
+          )}
         </div>
+
+        {/* Email Field */}
         <div>
           <label>Email</label>
           <input
@@ -82,17 +95,37 @@ const Sign = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
             onChange={handleChange}
             required
           />
+          {errors.email && <p className="error-message">{errors.email}</p>}
         </div>
+
+        {/* Password Field */}
         <div>
           <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+          <div className="password-field">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
+          {errors.password && (
+            <p className="error-message">{errors.password}</p>
+          )}
         </div>
+
+        {/* General Signup Error */}
+        {errors.Sign && <p className="error-message">{errors.Sign}</p>}
+
+        {/* Submit Button */}
         <button type="submit" disabled={isLoading}>
           {isLoading ? "Signing up..." : "Signup"}
         </button>

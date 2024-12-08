@@ -2,16 +2,16 @@
 .about-container {
     padding: 20px;
     max-width: 800px;
-    margin: 0 auto;
+    margin-left: 300px;
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
-    height: 500px;
 }
 
+/* Title Styles */
 .about-title {
     text-align: center;
     font-size: 2rem;
@@ -21,6 +21,7 @@
     letter-spacing: 1px;
 }
 
+/* Text Content Styles */
 .about-text {
     font-size: 1.1rem;
     margin-bottom: 20px;
@@ -33,6 +34,7 @@
     font-weight: bold;
 }
 
+/* List Styles */
 .about-list {
     padding-left: 20px;
 }
@@ -50,11 +52,13 @@
     color: #007BFF;
 }
 
+/* Icon Styles */
 .about-icon {
     margin-right: 10px;
     font-size: 1.3rem;
 }
 
+/* Footer Styles */
 .about-footer {
     text-align: center;
     margin-top: 20px;
@@ -62,13 +66,16 @@
     color: #666;
 }
 
-@media (max-width: 768px) {
+/* Responsive Styles */
+@media (max-width: 1024px) {
+
+    /* Tablet View */
     .about-container {
         padding: 15px;
     }
 
     .about-title {
-        font-size: 1.7rem;
+        font-size: 1.8rem;
     }
 
     .about-text,
@@ -82,5 +89,62 @@
 
     .about-footer {
         font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Mobile View */
+    .about-container {
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-title {
+        font-size: 1.5rem;
+    }
+
+    .about-text,
+    .about-subtext {
+        font-size: 0.95rem;
+    }
+
+    .about-list {
+        padding-left: 15px;
+    }
+
+    .about-list-item {
+        font-size: 0.95rem;
+    }
+
+    .about-footer {
+        font-size: 0.85rem;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    /* Desktop View */
+    .about-container {
+        padding: 25px;
+        max-width: 1000px;
+    }
+
+    .about-title {
+        font-size: 2.2rem;
+    }
+
+    .about-text,
+    .about-subtext {
+        font-size: 1.2rem;
+    }
+
+    .about-list-item {
+        font-size: 1.2rem;
+    }
+
+    .about-footer {
+        font-size: 1.1rem;
     }
 }

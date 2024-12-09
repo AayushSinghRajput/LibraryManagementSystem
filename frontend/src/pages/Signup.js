@@ -47,7 +47,7 @@ const Sign = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
     try {
       const response = await SignUser(formData);
 
-      if (response?.success) {
+      if (response) {
         setIsAuthenticated(true);
         navigate("/books");
       } else {

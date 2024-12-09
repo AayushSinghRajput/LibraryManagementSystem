@@ -8,7 +8,7 @@ const {
 // User Login
 const loginUserController = async (req, res) => {
   const { email, password } = req.body;
-  if (typeof email !== "String") {
+  if (typeof email !== "string") {
     throw new Error("Invalid email format");
   }
   try {

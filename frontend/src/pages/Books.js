@@ -2,18 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./Books.css";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
 const Books = ({ books, setBooks }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredBooks, setFilteredBooks] = useState(books);
   const [loading, setLoading] = useState(false);
+  const authUser = JSON.parse(localStorage.getItem("authUser"));
+  const authToken = localStorage.getItem("authToken");
   const { user } = useAuth();
   const navigate = useNavigate();
-
   useEffect(() => {
     setFilteredBooks(books);
   }, [books]);
-
   // Debounced search
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -34,15 +33,22 @@ const Books = ({ books, setBooks }) => {
   };
 
   const handleIssue = async (book) => {
-    if (!user) return alert("Please log in to issue a book.");
+    if (!authUser || !authToken) {
+      alert("Please log in to issue a book.");
+      return;
+    }
+    // const token = localStorage.getItem("authToken");
+    // if (!token) {
+    //   alert("No token found. Please log in.");
+    //   return;
+    // }
     setLoading(true);
-    const token = localStorage.getItem("authToken");
     try {
       const response = await fetch("/api/borrow/issue", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, //Include token
+          Authorization: `Bearer ${authToken}`, //Include token
         },
         body: JSON.stringify({ userId: user._id, bookId: book.id }),
       });
@@ -55,13 +61,22 @@ const Books = ({ books, setBooks }) => {
       }
     } catch (error) {
       alert("Error issuing book. Please try again later.");
+      console.error("Issue book error:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const handleReturn = async (book) => {
-    if (!user) return alert("Please log in to return a book.");
+    if (!authUser || !authToken) {
+      alert("Please log in to return a book.");
+      return;
+    }
+    // const token = localStorage.getItem("authToken");
+    // if (!token) {
+    //   alert("No token found. Please log in.");
+    //   return;
+    // }
     setLoading(true);
     try {
       const response = await fetch("/api/borrow/return", {
@@ -81,7 +96,6 @@ const Books = ({ books, setBooks }) => {
       setLoading(false);
     }
   };
-
   return (
     <div className="books-container">
       <div className="search-container">
@@ -94,9 +108,7 @@ const Books = ({ books, setBooks }) => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-
       {loading && <p>Loading...</p>}
-
       <ul className="books-list">
         {filteredBooks.length > 0 ? (
           filteredBooks.map((book) => (
@@ -106,7 +118,6 @@ const Books = ({ books, setBooks }) => {
                 src="https://i0.wp.com/apeejay.news/wp-content/uploads/2023/10/281023-10-most-read-books-Blog.jpg?resize=740%2C524&ssl=1"
                 alt="book-image"
               ></img>
-              {/* <img src={book.image} alt={book.title} className="book-image" /> */}
               <h3>{book.title}</h3>
               <p>Author: {book.author}</p>
               <p>Genre: {book.genre || "Not specified"}</p>

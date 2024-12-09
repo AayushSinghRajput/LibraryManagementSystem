@@ -32,9 +32,7 @@ const signUserService = async (userdata) => {
     password: hashedPassword,
   });
   const newUserdata = await newUser.save();
-  res
-    .status(201)
-    .json({ message: "User Signed up successfully", data: newUserdata });
+  return newUserdata;
 };
 
 const logoutUserService = async (email) => {

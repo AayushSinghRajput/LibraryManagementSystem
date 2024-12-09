@@ -14,7 +14,8 @@ export const AuthProvider = ({ children }) => {
       try {
         const storedUser = localStorage.getItem("authUser");
         const storedToken = localStorage.getItem("authToken");
-        console.log(storedUser, storedToken);
+        console.log("Fetched user from localStorage:", storedUser);
+        console.log("Fetched token from localStorage:", storedToken);
         if (storedUser && storedToken) {
           setUser(JSON.parse(storedUser)); // Parse and set user
           setToken(storedToken);
@@ -30,12 +31,19 @@ export const AuthProvider = ({ children }) => {
 
   // Login function
   const login = (userData, authToken) => {
-    setUser(userData);
-    setToken(authToken);
-    localStorage.setItem("authUser", JSON.stringify(userData)); // Store user persistently
-    localStorage.setItem("authToken", authToken); //Save token persistenly
-    console.log("Stored user:", localStorage.getItem("authUser"));
-    console.log("Stored token:", localStorage.getItem("authToken"));
+    try {
+      setUser(userData);
+      setToken(authToken);
+      localStorage.setItem("authUser", JSON.stringify(userData)); // Store user persistently
+      localStorage.setItem("authToken", authToken); //Save token persistenly
+      console.log(
+        "Login stored user:",
+        JSON.parse(localStorage.getItem("authUser"))
+      );
+      console.log("Login stored token:", localStorage.getItem("authToken"));
+    } catch (error) {
+      console.error("Error storing data in localStorage:", error);
+    }
   };
 
   // Logout function

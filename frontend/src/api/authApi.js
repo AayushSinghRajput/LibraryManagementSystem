@@ -11,6 +11,7 @@ const handleResponse = async (response) => {
 // Login function
 export const loginUser = async ({ email, password }) => {
   try {
+    console.log("Attempting login...");
     const response = await fetch(`${apiUrl}/login`, {
       method: "POST",
       headers: {
@@ -18,14 +19,13 @@ export const loginUser = async ({ email, password }) => {
       },
       body: JSON.stringify({ email, password }),
     });
-
     const data = await handleResponse(response);
-
     // Store token if needed
     if (data.token) {
+      console.log("Storing authToken and authUser...");
       localStorage.setItem("authToken", data.token); // Store token securely
+      localStorage.setItem("authUser", JSON.stringify(data.user));
     }
-
     return data;
   } catch (error) {
     console.error("Login error:", error);
@@ -43,12 +43,11 @@ export const SignUser = async ({ name, email, password }) => {
       },
       body: JSON.stringify({ name, email, password }),
     });
-
     const data = await handleResponse(response);
-
     // Store token if needed
     if (data.token) {
       localStorage.setItem("authToken", data.token); // Store token securely
+      localStorage.setItem("authUser", JSON.stringify(data.user));
     }
 
     return data;

@@ -3,16 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { loginUser } from "../api/authApi";
 
-const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
+const Login = ({ setIsAuthenticated, setAuthUser }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    login: "",
-  });
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
@@ -27,16 +25,14 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    //validate input fields
     const newErrors = {};
     if (!isValidEmail(formData.email)) {
       newErrors.email = "Please enter a valid email address.";
     }
-
     if (formData.password.length < 6) {
       newErrors.password = "Password must be at least 6 characters long.";
     }
-
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -45,8 +41,12 @@ const Login = ({ setIsAuthenticated, isLoading, setIsLoading }) => {
     setIsLoading(true);
     try {
       const response = await loginUser(formData);
-      if (response) {
+      if (response && response.token && response.user) {
+        console.log("Login successful:", response);
+        localStorage.setItem("authToken", response.token);
+        localStorage.setItem("authUser", JSON.stringify(response.user));
         setIsAuthenticated(true);
+        setAuthUser(response.user);
         navigate("/books");
       } else {
         setErrors({
